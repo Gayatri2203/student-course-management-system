@@ -64,7 +64,28 @@ public class Main {
                     break;
 
                 case 4:
-                    System.out.println("Update Student selected.");
+
+                    scanner.nextLine();
+
+                    System.out.print("Enter Student Name to Update: ");
+                    String updateName = scanner.nextLine().trim();
+
+                    System.out.print("Enter New Age: ");
+                    int newAge = scanner.nextInt();
+
+                    scanner.nextLine();
+
+                    System.out.print("Enter New Email: ");
+                    String newEmail = scanner.nextLine().trim();
+
+                    boolean updated = studentService.updateStudent(updateName, newAge, newEmail);
+
+                    if (updated) {
+                        System.out.println("Student Updated Successfully!");
+                    } else {
+                        System.out.println("Student Not Found!");
+                    }
+
                     break;
 
                 case 5:

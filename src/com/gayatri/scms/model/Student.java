@@ -23,6 +23,17 @@ public class Student {
     public String getEmail() {
         return email;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     @Override
     public String toString() {
         return "Student{" +

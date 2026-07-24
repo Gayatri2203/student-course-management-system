@@ -54,5 +54,20 @@ public class StudentService {
             System.out.println("Student not found.");
         }
     }
+    public boolean updateStudent(String searchName, int newAge, String newEmail) {
+
+        for (Student student : students) {
+
+            if (student.getName().equalsIgnoreCase(searchName)) {
+
+                student.setAge(newAge);
+                student.setEmail(newEmail);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
