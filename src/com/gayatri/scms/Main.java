@@ -7,31 +7,65 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        displayWelcomeMessage();
+        while (running) {
 
-        System.out.print("Enter Student Name: ");
-        String name = scanner.nextLine();
+            displayMenu();
 
-        System.out.print("Enter Student Age: ");
-        int age = scanner.nextInt();
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
 
-        displayStudentDetails(name, age);
+            switch (choice) {
+
+                case 1:
+                    System.out.println("Add Student selected.");
+                    break;
+
+                case 2:
+                    System.out.println("View Student selected.");
+                    break;
+
+                case 3:
+                    System.out.println("Search Student selected.");
+                    break;
+
+                case 4:
+                    System.out.println("Update Student selected.");
+                    break;
+
+                case 5:
+                    System.out.println("Delete Student selected.");
+                    break;
+
+                case 6:
+                    System.out.println("Thank you for using SCMS.");
+                    running = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+
+            System.out.println();
+
+        }
 
         scanner.close();
     }
 
-    public static void displayWelcomeMessage() {
+    public static void displayMenu() {
+
         System.out.println("====================================");
         System.out.println(" Student Course Management System");
         System.out.println("====================================");
-    }
 
-    public static void displayStudentDetails(String name, int age) {
+        System.out.println("1. Add Student");
+        System.out.println("2. View Students");
+        System.out.println("3. Search Student");
+        System.out.println("4. Update Student");
+        System.out.println("5. Delete Student");
+        System.out.println("6. Exit");
         System.out.println();
-        System.out.println("Student Details");
-        System.out.println("----------------");
-        System.out.println("Name : " + name);
-        System.out.println("Age  : " + age);
     }
 }
