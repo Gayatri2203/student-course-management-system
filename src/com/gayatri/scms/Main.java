@@ -1,6 +1,7 @@
 package com.gayatri.scms;
 
 import java.util.Scanner;
+import com.gayatri.scms.model.Student;
 
 public class Main {
 
@@ -19,7 +20,28 @@ public class Main {
             switch (choice) {
 
                 case 1:
-                    System.out.println("Add Student selected.");
+
+                    scanner.nextLine();   // Clear the leftover newline
+
+                    Student student1 = new Student();
+
+                    System.out.print("Enter Student Name: ");
+                    student1.name = scanner.nextLine();
+
+                    System.out.print("Enter Student Age: ");
+                    student1.age = scanner.nextInt();
+
+                    scanner.nextLine();
+
+                    System.out.print("Enter Student Email: ");
+                    student1.email = scanner.nextLine();
+
+                    System.out.println("\nStudent Added Successfully!");
+                    System.out.println("----------------------------");
+                    System.out.println("Name  : " + student1.name);
+                    System.out.println("Age   : " + student1.age);
+                    System.out.println("Email : " + student1.email);
+
                     break;
 
                 case 2:

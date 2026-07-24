@@ -2,8 +2,8 @@ package com.gayatri.scms.model;
 
 public class Student {
 
-    String name;
-    int age;
-    String email;
+    public String name;
+    public int age;
+    public String email;
 
 }
