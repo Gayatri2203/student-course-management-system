@@ -33,5 +33,26 @@ public class StudentService {
         }
 
     }
+    public void searchStudent(String searchName) {
+
+        boolean found = false;
+
+        for (Student student : students) {
+
+            if (student.getName().equalsIgnoreCase(searchName)) {
+
+                System.out.println("\nStudent Found");
+                System.out.println("----------------");
+                System.out.println(student);
+
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student not found.");
+        }
+    }
 
 }

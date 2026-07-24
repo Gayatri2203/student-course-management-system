@@ -53,7 +53,14 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("Search Student selected.");
+
+                    scanner.nextLine();
+
+                    System.out.print("Enter Student Name to Search: ");
+                    String searchName = scanner.nextLine();
+
+                    studentService.searchStudent(searchName);
+
                     break;
 
                 case 4:
