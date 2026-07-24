@@ -28,9 +28,9 @@ public class StudentService {
 
             System.out.println("---------------------");
             System.out.println("Student " + count++);
-            System.out.println("Name  : " + student.name);
-            System.out.println("Age   : " + student.age);
-            System.out.println("Email : " + student.email);
+            System.out.println("Name  : " + student.getName());
+            System.out.println("Age   : " + student.getAge());
+            System.out.println("Email : " + student.getEmail());
 
         }
 

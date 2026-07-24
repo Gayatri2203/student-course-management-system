@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.gayatri.scms.service.StudentService;
 
 public class Main {
-    static ArrayList<Student> students = new ArrayList<>();
+
 
     public static void main(String[] args) {
 
@@ -26,32 +26,31 @@ public class Main {
 
                 case 1:
 
-                    scanner.nextLine();   // Clear the leftover newline
 
-                    Student student1 = new Student();
+                    scanner.nextLine();
 
                     System.out.print("Enter Student Name: ");
-                    student1.name = scanner.nextLine();
+                    String name = scanner.nextLine();
 
                     System.out.print("Enter Student Age: ");
-                    student1.age = scanner.nextInt();
+                    int age = scanner.nextInt();
 
                     scanner.nextLine();
 
                     System.out.print("Enter Student Email: ");
-                    student1.email = scanner.nextLine();
+                    String email = scanner.nextLine();
+
+                    Student student1 = new Student(name, age, email);
+
                     studentService.addStudent(student1);
 
                     System.out.println("\nStudent Added Successfully!");
-                    System.out.println("----------------------------");
-                    System.out.println("Name  : " + student1.name);
-                    System.out.println("Age   : " + student1.age);
-                    System.out.println("Email : " + student1.email);
 
                     break;
 
                 case 2:
                     studentService.viewStudents();
+                    break;
 
                 case 3:
                     System.out.println("Search Student selected.");
