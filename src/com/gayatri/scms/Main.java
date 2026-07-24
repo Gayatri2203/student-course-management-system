@@ -2,10 +2,13 @@ package com.gayatri.scms;
 
 import java.util.Scanner;
 import com.gayatri.scms.model.Student;
+import java.util.ArrayList;
 
 public class Main {
+    static ArrayList<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
+
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -35,6 +38,7 @@ public class Main {
 
                     System.out.print("Enter Student Email: ");
                     student1.email = scanner.nextLine();
+                    students.add(student1);
 
                     System.out.println("\nStudent Added Successfully!");
                     System.out.println("----------------------------");
@@ -45,7 +49,24 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("View Student selected.");
+                    if (students.isEmpty()) {
+
+                        System.out.println("No students found.");
+
+                    } else {
+
+                        System.out.println("\n===== Student List =====");
+
+                        for (Student student : students) {
+
+                            System.out.println("-----------------------");
+                            System.out.println("Name  : " + student.name);
+                            System.out.println("Age   : " + student.age);
+                            System.out.println("Email : " + student.email);
+
+                        }
+
+                    }
                     break;
 
                 case 3:
