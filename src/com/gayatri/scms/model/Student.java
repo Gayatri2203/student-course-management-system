@@ -2,14 +2,22 @@ package com.gayatri.scms.model;
 
 public class Student {
 
+    private static int idCounter = 1001;
+
+    private int studentId;
     private String name;
     private int age;
     private String email;
 
     public Student(String name, int age, String email) {
+        this.studentId = idCounter++;
         this.name = name;
         this.age = age;
         this.email = email;
+    }
+
+    public int getStudentId() {
+        return studentId;
     }
 
     public String getName() {
@@ -36,10 +44,13 @@ public class Student {
     }
     @Override
     public String toString() {
-        return "Student{" +
-                "\nName = '" + name + '\'' +
-                ",\nAge = " + age +
-                ",\nEmail = '" + email + '\'' +
-                "\n}";
+        return "=========================\n" +
+                "Student Details\n" +
+                "=========================\n" +
+                "ID    : " + studentId + "\n" +
+                "Name  : " + name + "\n" +
+                "Age   : " + age + "\n" +
+                "Email : " + email + "\n" +
+                "=========================";
     }
 }
