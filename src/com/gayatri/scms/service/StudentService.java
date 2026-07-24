@@ -69,5 +69,19 @@ public class StudentService {
 
         return false;
     }
+    public boolean deleteStudent(String deleteName) {
+
+        for (Student student : students) {
+
+            if (student.getName().equalsIgnoreCase(deleteName)) {
+
+                students.remove(student);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
