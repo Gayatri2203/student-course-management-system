@@ -3,6 +3,7 @@ package com.gayatri.scms;
 import java.util.Scanner;
 import com.gayatri.scms.model.Student;
 import java.util.ArrayList;
+import com.gayatri.scms.service.StudentService;
 
 public class Main {
     static ArrayList<Student> students = new ArrayList<>();
@@ -12,6 +13,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+        StudentService studentService = new StudentService();
 
         while (running) {
 
@@ -38,7 +40,7 @@ public class Main {
 
                     System.out.print("Enter Student Email: ");
                     student1.email = scanner.nextLine();
-                    students.add(student1);
+                    studentService.addStudent(student1);
 
                     System.out.println("\nStudent Added Successfully!");
                     System.out.println("----------------------------");
@@ -49,25 +51,7 @@ public class Main {
                     break;
 
                 case 2:
-                    if (students.isEmpty()) {
-
-                        System.out.println("No students found.");
-
-                    } else {
-
-                        System.out.println("\n===== Student List =====");
-
-                        for (Student student : students) {
-
-                            System.out.println("-----------------------");
-                            System.out.println("Name  : " + student.name);
-                            System.out.println("Age   : " + student.age);
-                            System.out.println("Email : " + student.email);
-
-                        }
-
-                    }
-                    break;
+                    studentService.viewStudents();
 
                 case 3:
                     System.out.println("Search Student selected.");
