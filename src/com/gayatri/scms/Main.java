@@ -2,14 +2,11 @@ package com.gayatri.scms;
 
 import java.util.Scanner;
 import com.gayatri.scms.model.Student;
-
 import com.gayatri.scms.service.StudentService;
 
 public class Main {
 
-
     public static void main(String[] args) {
-
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -29,65 +26,23 @@ public class Main {
             } catch (Exception e) {
 
                 System.out.println("\nInvalid input! Please enter a number.");
-
-                scanner.nextLine();   // Clear invalid input
-
-                continue;             // Restart the menu
+                scanner.nextLine();
+                continue;
             }
 
             switch (choice) {
 
                 case 1: {
 
-
                     scanner.nextLine();
 
-                    String name;
+                    String name = readValidName(scanner);
+                    int age = readValidAge(scanner);
+                    String email = readValidEmail(scanner);
 
-                    while (true) {
+                    Student student = new Student(name, age, email);
 
-                        System.out.print("Enter Student Name: ");
-                        name = scanner.nextLine().trim();
-
-                        if (!name.isEmpty()) {
-                            break;
-                        }
-
-                        System.out.println("Name cannot be empty.");
-                    }
-
-                    int age;
-
-                    while (true) {
-
-                        System.out.print("Enter Student Age: ");
-                        age = scanner.nextInt();
-
-                        if (age >= 1 && age <= 120) {
-                            break;
-                        }
-
-                        System.out.println("Invalid age! Please enter age between 1 and 120.");
-                    }
-                    scanner.nextLine();
-
-                    String email;
-
-                    while (true) {
-
-                        System.out.print("Enter Student Email: ");
-                        email = scanner.nextLine().trim();
-
-                        if (email.contains("@") && email.contains(".")) {
-                            break;
-                        }
-
-                        System.out.println("Invalid email format.");
-                    }
-
-                    Student student1 = new Student(name, age, email);
-
-                    studentService.addStudent(student1);
+                    studentService.addStudent(student);
 
                     System.out.println("\nStudent Added Successfully!");
 
@@ -95,6 +50,7 @@ public class Main {
                 }
 
                 case 2:
+
                     studentService.viewStudents();
                     break;
 
@@ -103,7 +59,7 @@ public class Main {
                     scanner.nextLine();
 
                     System.out.print("Enter Student Name to Search: ");
-                    String searchName = scanner.nextLine();
+                    String searchName = scanner.nextLine().trim();
 
                     studentService.searchStudent(searchName);
 
@@ -111,54 +67,15 @@ public class Main {
 
                 case 4: {
 
-                    scanner.nextLine(); // Clear the leftover newline
+                    scanner.nextLine();
 
-                    // Get student name
-                    String name;
+                    System.out.print("Enter Student Name to Update: ");
+                    String name = scanner.nextLine().trim();
 
-                    while (true) {
+                    int newAge = readValidAge(scanner);
 
-                        System.out.print("Enter Student Name to Update: ");
-                        name = scanner.nextLine().trim();
-
-                        if (!name.isEmpty()) {
-                            break;
-                        }
-
-                        System.out.println("Student name cannot be empty.");
-                    }
-
-                    // Get new age
-                    int newAge;
-
-                    while (true) {
-
-                        System.out.print("Enter New Age: ");
-                        newAge = scanner.nextInt();
-
-                        if (newAge >= 1 && newAge <= 120) {
-                            break;
-                        }
-
-                        System.out.println("Invalid age! Please enter age between 1 and 120.");
-                    }
-
-                    scanner.nextLine(); // Clear the newline
-
-                    // Get new email
-                    String email;
-
-                    while (true) {
-
-                        System.out.print("Enter New Email: ");
-                        email = scanner.nextLine().trim();
-
-                        if (email.contains("@") && email.contains(".")) {
-                            break;
-                        }
-
-                        System.out.println("Invalid email format.");
-                    }
+                    System.out.print("Enter New Email: ");
+                    String email = readValidEmail(scanner);
 
                     boolean updated = studentService.updateStudent(name, newAge, email);
 
@@ -181,27 +98,89 @@ public class Main {
                     boolean deleted = studentService.deleteStudent(deleteName);
 
                     if (deleted) {
-                        System.out.println("Student Deleted Successfully!");
+                        System.out.println("\nStudent Deleted Successfully!");
                     } else {
-                        System.out.println("Student Not Found!");
+                        System.out.println("\nStudent Not Found!");
                     }
 
                     break;
 
                 case 6:
+
                     System.out.println("Thank you for using SCMS.");
                     running = false;
                     break;
 
                 default:
+
                     System.out.println("Invalid choice! Please try again.");
             }
 
             System.out.println();
-
         }
 
         scanner.close();
+    }
+
+    // ------------------------
+    // Helper Methods
+    // ------------------------
+
+    public static String readValidName(Scanner scanner) {
+
+        while (true) {
+
+            System.out.print("Enter Student Name: ");
+            String name = scanner.nextLine().trim();
+
+            if (!name.isEmpty()) {
+                return name;
+            }
+
+            System.out.println("Name cannot be empty.");
+        }
+    }
+
+    public static int readValidAge(Scanner scanner) {
+
+        while (true) {
+
+            System.out.print("Enter Student Age: ");
+
+            try {
+
+                int age = scanner.nextInt();
+
+                if (age >= 1 && age <= 120) {
+
+                    scanner.nextLine();
+                    return age;
+                }
+
+                System.out.println("Age must be between 1 and 120.");
+
+            } catch (Exception e) {
+
+                System.out.println("Please enter numbers only.");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static String readValidEmail(Scanner scanner) {
+
+        while (true) {
+
+            System.out.print("Enter Student Email: ");
+
+            String email = scanner.nextLine().trim();
+
+            if (email.contains("@") && email.contains(".")) {
+                return email;
+            }
+
+            System.out.println("Invalid email format.");
+        }
     }
 
     public static void displayMenu() {
@@ -209,7 +188,6 @@ public class Main {
         System.out.println("====================================");
         System.out.println(" Student Course Management System");
         System.out.println("====================================");
-
         System.out.println("1. Add Student");
         System.out.println("2. View Students");
         System.out.println("3. Search Student");

@@ -4,6 +4,8 @@ import com.gayatri.scms.model.Student;
 
 import java.util.ArrayList;
 
+import com.gayatri.scms.util.FileManager;
+
 public class StudentService {
 
     private ArrayList<Student> students = new ArrayList<>();
@@ -11,6 +13,8 @@ public class StudentService {
     public void addStudent(Student student) {
 
         students.add(student);
+
+        FileManager.saveStudent(student.toString());
 
     }
 

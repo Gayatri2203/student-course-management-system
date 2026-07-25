@@ -1,0 +1,16 @@
+=========================
+Student Details
+=========================
+ID    : 1001
+Name  : Gayatri
+Age   : 23
+Email : gayatri@mail.com
+=========================
+=========================
+Student Details
+=========================
+ID    : 1002
+Name  : Viraj
+Age   : 22
+Email : viraj@mail.com
+=========================
