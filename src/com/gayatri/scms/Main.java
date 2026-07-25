@@ -2,7 +2,7 @@ package com.gayatri.scms;
 
 import java.util.Scanner;
 import com.gayatri.scms.model.Student;
-import java.util.ArrayList;
+
 import com.gayatri.scms.service.StudentService;
 
 public class Main {
@@ -24,21 +24,53 @@ public class Main {
 
             switch (choice) {
 
-                case 1:
+                case 1: {
 
 
                     scanner.nextLine();
 
-                    System.out.print("Enter Student Name: ");
-                    String name = scanner.nextLine();
+                    String name;
 
-                    System.out.print("Enter Student Age: ");
-                    int age = scanner.nextInt();
+                    while (true) {
 
+                        System.out.print("Enter Student Name: ");
+                        name = scanner.nextLine().trim();
+
+                        if (!name.isEmpty()) {
+                            break;
+                        }
+
+                        System.out.println("Name cannot be empty.");
+                    }
+
+                    int age;
+
+                    while (true) {
+
+                        System.out.print("Enter Student Age: ");
+                        age = scanner.nextInt();
+
+                        if (age >= 1 && age <= 120) {
+                            break;
+                        }
+
+                        System.out.println("Invalid age! Please enter age between 1 and 120.");
+                    }
                     scanner.nextLine();
 
-                    System.out.print("Enter Student Email: ");
-                    String email = scanner.nextLine();
+                    String email;
+
+                    while (true) {
+
+                        System.out.print("Enter Student Email: ");
+                        email = scanner.nextLine().trim();
+
+                        if (email.contains("@") && email.contains(".")) {
+                            break;
+                        }
+
+                        System.out.println("Invalid email format.");
+                    }
 
                     Student student1 = new Student(name, age, email);
 
@@ -47,6 +79,7 @@ public class Main {
                     System.out.println("\nStudent Added Successfully!");
 
                     break;
+                }
 
                 case 2:
                     studentService.viewStudents();
@@ -63,30 +96,67 @@ public class Main {
 
                     break;
 
-                case 4:
+                case 4: {
 
-                    scanner.nextLine();
+                    scanner.nextLine(); // Clear the leftover newline
 
-                    System.out.print("Enter Student Name to Update: ");
-                    String updateName = scanner.nextLine().trim();
+                    // Get student name
+                    String name;
 
-                    System.out.print("Enter New Age: ");
-                    int newAge = scanner.nextInt();
+                    while (true) {
 
-                    scanner.nextLine();
+                        System.out.print("Enter Student Name to Update: ");
+                        name = scanner.nextLine().trim();
 
-                    System.out.print("Enter New Email: ");
-                    String newEmail = scanner.nextLine().trim();
+                        if (!name.isEmpty()) {
+                            break;
+                        }
 
-                    boolean updated = studentService.updateStudent(updateName, newAge, newEmail);
+                        System.out.println("Student name cannot be empty.");
+                    }
+
+                    // Get new age
+                    int newAge;
+
+                    while (true) {
+
+                        System.out.print("Enter New Age: ");
+                        newAge = scanner.nextInt();
+
+                        if (newAge >= 1 && newAge <= 120) {
+                            break;
+                        }
+
+                        System.out.println("Invalid age! Please enter age between 1 and 120.");
+                    }
+
+                    scanner.nextLine(); // Clear the newline
+
+                    // Get new email
+                    String email;
+
+                    while (true) {
+
+                        System.out.print("Enter New Email: ");
+                        email = scanner.nextLine().trim();
+
+                        if (email.contains("@") && email.contains(".")) {
+                            break;
+                        }
+
+                        System.out.println("Invalid email format.");
+                    }
+
+                    boolean updated = studentService.updateStudent(name, newAge, email);
 
                     if (updated) {
-                        System.out.println("Student Updated Successfully!");
+                        System.out.println("\nStudent Updated Successfully!");
                     } else {
-                        System.out.println("Student Not Found!");
+                        System.out.println("\nStudent Not Found!");
                     }
 
                     break;
+                }
 
                 case 5:
 
