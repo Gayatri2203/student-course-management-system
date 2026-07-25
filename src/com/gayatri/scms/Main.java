@@ -19,8 +19,21 @@ public class Main {
 
             displayMenu();
 
-            System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
+            int choice;
+
+            try {
+
+                System.out.print("Enter your choice: ");
+                choice = scanner.nextInt();
+
+            } catch (Exception e) {
+
+                System.out.println("\nInvalid input! Please enter a number.");
+
+                scanner.nextLine();   // Clear invalid input
+
+                continue;             // Restart the menu
+            }
 
             switch (choice) {
 
