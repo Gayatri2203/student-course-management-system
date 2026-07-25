@@ -15,6 +15,14 @@ public class Student {
         this.age = age;
         this.email = email;
     }
+    public Student(int studentId, String name, int age, String email) {
+
+        this.studentId = studentId;
+        this.name = name;
+        this.age = age;
+        this.email = email;
+
+    }
 
     public int getStudentId() {
         return studentId;

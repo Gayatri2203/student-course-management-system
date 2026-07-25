@@ -14,7 +14,7 @@ public class StudentService {
 
         students.add(student);
 
-        FileManager.saveStudent(student.toString());
+        FileManager.saveStudent(student);
 
     }
 
