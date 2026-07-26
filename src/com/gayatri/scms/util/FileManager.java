@@ -34,6 +34,8 @@ public class FileManager {
     }
     public static void saveCourse(Course course) {
 
+        System.out.println("Saving course to file...");
+
         try {
 
             FileWriter writer = new FileWriter("courses.txt", true);
@@ -50,6 +52,7 @@ public class FileManager {
         } catch (IOException e) {
 
             System.out.println("Error saving course to file.");
+            e.printStackTrace();
         }
     }
     public static ArrayList<Student> loadStudents() {

@@ -25,13 +25,16 @@ public class CourseManager {
     // View All Courses
     public void viewCourses() {
 
-        if(courses.isEmpty()) {
-            System.out.println("No courses available.");
+        if (courses.isEmpty()) {
+            System.out.println("\nNo courses available.");
             return;
         }
 
-        for(Course course : courses) {
+        System.out.println("\n========== Course List ==========");
+
+        for (Course course : courses) {
             System.out.println(course);
+            System.out.println("--------------------------------");
         }
     }
 
@@ -61,5 +64,12 @@ public class CourseManager {
         }
 
         return false;
+    }
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
     }
 }
