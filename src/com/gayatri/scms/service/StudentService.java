@@ -8,7 +8,13 @@ import com.gayatri.scms.util.FileManager;
 
 public class StudentService {
 
-    private ArrayList<Student> students = new ArrayList<>();
+    private ArrayList<Student> students;
+
+    public StudentService() {
+
+        students = FileManager.loadStudents();
+
+    }
 
     public void addStudent(Student student) {
 
