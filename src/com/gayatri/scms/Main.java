@@ -16,6 +16,7 @@ public class Main {
 
             displayMenu();
 
+
             int choice;
 
             try {
@@ -36,15 +37,7 @@ public class Main {
 
                     scanner.nextLine();
 
-                    String name = readValidName(scanner);
-                    int age = readValidAge(scanner);
-                    String email = readValidEmail(scanner);
-
-                    Student student = new Student(name, age, email);
-
-                    studentService.addStudent(student);
-
-                    System.out.println("\nStudent Added Successfully!");
+                    addStudent(scanner, studentService);
 
                     break;
                 }
@@ -54,56 +47,32 @@ public class Main {
                     studentService.viewStudents();
                     break;
 
-                case 3:
+                case 3: {
 
                     scanner.nextLine();
 
-                    System.out.print("Enter Student Name to Search: ");
-                    String searchName = scanner.nextLine().trim();
-
-                    studentService.searchStudent(searchName);
+                    searchStudent(scanner, studentService);
 
                     break;
+                }
 
                 case 4: {
 
                     scanner.nextLine();
 
-                    System.out.print("Enter Student Name to Update: ");
-                    String name = scanner.nextLine().trim();
-
-                    int newAge = readValidAge(scanner);
-
-                    System.out.print("Enter New Email: ");
-                    String email = readValidEmail(scanner);
-
-                    boolean updated = studentService.updateStudent(name, newAge, email);
-
-                    if (updated) {
-                        System.out.println("\nStudent Updated Successfully!");
-                    } else {
-                        System.out.println("\nStudent Not Found!");
-                    }
+                    updateStudent(scanner, studentService);
 
                     break;
                 }
 
-                case 5:
+                case 5: {
 
                     scanner.nextLine();
 
-                    System.out.print("Enter Student Name to Delete: ");
-                    String deleteName = scanner.nextLine().trim();
-
-                    boolean deleted = studentService.deleteStudent(deleteName);
-
-                    if (deleted) {
-                        System.out.println("\nStudent Deleted Successfully!");
-                    } else {
-                        System.out.println("\nStudent Not Found!");
-                    }
+                    deleteStudent(scanner, studentService);
 
                     break;
+                }
 
                 case 6:
 
@@ -195,5 +164,70 @@ public class Main {
         System.out.println("5. Delete Student");
         System.out.println("6. Exit");
         System.out.println();
+    }
+    public static void addStudent(Scanner scanner, StudentService studentService) {
+
+        String name = readValidName(scanner);
+
+        int age = readValidAge(scanner);
+
+        String email = readValidEmail(scanner);
+
+        Student student = new Student(name, age, email);
+
+        studentService.addStudent(student);
+
+        System.out.println("\nStudent Added Successfully!");
+    }
+    public static void searchStudent(Scanner scanner, StudentService studentService) {
+
+        System.out.print("Enter Student Name to Search: ");
+
+        String searchName = scanner.nextLine().trim();
+
+        studentService.searchStudent(searchName);
+
+    }
+    public static void updateStudent(Scanner scanner, StudentService studentService) {
+
+        String name = readValidName(scanner);
+
+        System.out.println("Enter New Details");
+
+        int newAge = readValidAge(scanner);
+
+        String newEmail = readValidEmail(scanner);
+
+        boolean updated = studentService.updateStudent(name, newAge, newEmail);
+
+        if (updated) {
+
+            System.out.println("\nStudent Updated Successfully!");
+
+        } else {
+
+            System.out.println("\nStudent Not Found!");
+
+        }
+
+    }
+    public static void deleteStudent(Scanner scanner, StudentService studentService) {
+
+        System.out.print("Enter Student Name to Delete: ");
+
+        String deleteName = scanner.nextLine().trim();
+
+        boolean deleted = studentService.deleteStudent(deleteName);
+
+        if (deleted) {
+
+            System.out.println("\nStudent Deleted Successfully!");
+
+        } else {
+
+            System.out.println("\nStudent Not Found!");
+
+        }
+
     }
 }

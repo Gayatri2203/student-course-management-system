@@ -68,6 +68,29 @@ public class FileManager {
 
         return students;
     }
+    public static void rewriteStudents(ArrayList<Student> students) {
+        try {
+
+            FileWriter writer = new FileWriter("students.txt");
+
+            for (Student student : students) {
+
+                writer.write(
+                        student.getStudentId() + "," +
+                                student.getName() + "," +
+                                student.getAge() + "," +
+                                student.getEmail() + "\n"
+                );
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+
+            System.out.println("Error updating student records.");
+        }
+
+    }
 
 
 }

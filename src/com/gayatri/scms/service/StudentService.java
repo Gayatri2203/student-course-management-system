@@ -72,6 +72,7 @@ public class StudentService {
 
                 student.setAge(newAge);
                 student.setEmail(newEmail);
+                FileManager.rewriteStudents(students);
 
                 return true;
             }
@@ -86,6 +87,7 @@ public class StudentService {
             if (student.getName().equalsIgnoreCase(deleteName)) {
 
                 students.remove(student);
+                FileManager.rewriteStudents(students);
 
                 return true;
             }
