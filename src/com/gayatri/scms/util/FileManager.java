@@ -1,6 +1,7 @@
 package com.gayatri.scms.util;
 
 import com.gayatri.scms.model.Student;
+import com.gayatri.scms.model.Course;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +31,26 @@ public class FileManager {
             System.out.println("Error saving student to file.");
         }
 
+    }
+    public static void saveCourse(Course course) {
+
+        try {
+
+            FileWriter writer = new FileWriter("courses.txt", true);
+
+            writer.write(
+                    course.getCourseId() + "," +
+                            course.getCourseName() + "," +
+                            course.getDuration() + "," +
+                            course.getCredits() + "\n"
+            );
+
+            writer.close();
+
+        } catch (IOException e) {
+
+            System.out.println("Error saving course to file.");
+        }
     }
     public static ArrayList<Student> loadStudents() {
         System.out.println("Loading students from file...");
@@ -68,6 +89,41 @@ public class FileManager {
 
         return students;
     }
+    public static ArrayList<Course> loadCourses() {
+
+        System.out.println("Loading courses from file...");
+
+        ArrayList<Course> courses = new ArrayList<>();
+
+        try {
+
+            BufferedReader reader = new BufferedReader(new FileReader("courses.txt"));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+
+                String courseId = parts[0];
+                String courseName = parts[1];
+                String duration = parts[2];
+                int credits = Integer.parseInt(parts[3]);
+
+                Course course = new Course(courseId, courseName, duration, credits);
+
+                courses.add(course);
+            }
+
+            reader.close();
+
+        } catch (Exception e) {
+
+            System.out.println("No previous course records found.");
+        }
+
+        return courses;
+    }
     public static void rewriteStudents(ArrayList<Student> students) {
         try {
 
@@ -90,6 +146,29 @@ public class FileManager {
             System.out.println("Error updating student records.");
         }
 
+    }
+    public static void rewriteCourses(ArrayList<Course> courses) {
+
+        try {
+
+            FileWriter writer = new FileWriter("courses.txt");
+
+            for (Course course : courses) {
+
+                writer.write(
+                        course.getCourseId() + "," +
+                                course.getCourseName() + "," +
+                                course.getDuration() + "," +
+                                course.getCredits() + "\n"
+                );
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+
+            System.out.println("Error updating course records.");
+        }
     }
 
 
