@@ -80,13 +80,14 @@ public class StudentService {
 
         return false;
     }
-    public boolean deleteStudent(String deleteName) {
+    public boolean deleteStudent(int studentId) {
 
         for (Student student : students) {
 
-            if (student.getName().equalsIgnoreCase(deleteName)) {
+            if (student.getStudentId() == studentId) {
 
                 students.remove(student);
+
                 FileManager.rewriteStudents(students);
 
                 return true;
@@ -94,6 +95,21 @@ public class StudentService {
         }
 
         return false;
+    }
+    public Student searchStudentById(int studentId) {
+
+        for (Student student : students) {
+
+            if (student.getStudentId() == studentId) {
+                return student;
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
     }
 
 }

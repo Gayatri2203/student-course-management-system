@@ -1,1 +1,3 @@
 102,AIML,6months,4
+104,Java,6months,3
+107,web development,5months,5

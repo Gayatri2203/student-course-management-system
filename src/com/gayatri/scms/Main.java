@@ -17,6 +17,7 @@ public class Main {
 
         CourseManager courseManager = new CourseManager();
         courseManager.setCourses(FileManager.loadCourses());
+        FileManager.loadEnrollments(studentService, courseManager);
         System.out.println("Working Directory: " + System.getProperty("user.dir"));
 
         while (running) {
@@ -112,6 +113,20 @@ public class Main {
                     scanner.nextLine();
 
                     deleteCourse(scanner, courseManager);
+
+                    break;
+                }
+                case 10: {
+
+                    scanner.nextLine();
+
+                    assignCourseToStudent(scanner, studentService, courseManager);
+
+                    break;
+                }
+                case 11: {
+
+                    displayDashboard(studentService, courseManager);
 
                     break;
                 }
@@ -211,6 +226,14 @@ public class Main {
 
         System.out.println();
 
+        System.out.println("----- Enrollment -----");
+        System.out.println("10. Assign Course to Student");
+        System.out.println();
+        System.out.println("----- Dashboard -----");
+        System.out.println("11. View Dashboard");
+
+        System.out.println();
+
         System.out.println("0. Exit");
         System.out.println();
     }
@@ -230,12 +253,24 @@ public class Main {
     }
     public static void searchStudent(Scanner scanner, StudentService studentService) {
 
-        System.out.print("Enter Student Name to Search: ");
+        System.out.print("Enter Student ID to Search: ");
 
-        String searchName = scanner.nextLine().trim();
+        int studentId = scanner.nextInt();
+        scanner.nextLine();
 
-        studentService.searchStudent(searchName);
+        Student student = studentService.searchStudentById(studentId);
 
+        if (student != null) {
+
+            System.out.println("\nStudent Found");
+            System.out.println("----------------------");
+            System.out.println(student);
+
+        } else {
+
+            System.out.println("\nStudent not found.");
+
+        }
     }
     public static void updateStudent(Scanner scanner, StudentService studentService) {
 
@@ -262,11 +297,12 @@ public class Main {
     }
     public static void deleteStudent(Scanner scanner, StudentService studentService) {
 
-        System.out.print("Enter Student Name to Delete: ");
+        System.out.print("Enter Student ID to Delete: ");
 
-        String deleteName = scanner.nextLine().trim();
+        int studentId = scanner.nextInt();
+        scanner.nextLine();
 
-        boolean deleted = studentService.deleteStudent(deleteName);
+        boolean deleted = studentService.deleteStudent(studentId);
 
         if (deleted) {
 
@@ -277,7 +313,6 @@ public class Main {
             System.out.println("\nStudent Not Found!");
 
         }
-
     }
     public static void addCourse(Scanner scanner, CourseManager courseManager) {
 
@@ -339,4 +374,73 @@ public class Main {
 
         }
     }
+    public static void assignCourseToStudent(Scanner scanner,
+                                             StudentService studentService,
+                                             CourseManager courseManager) {
+
+        System.out.print("Enter Student ID: ");
+        int studentId = scanner.nextInt();
+        scanner.nextLine();
+
+        Student student = studentService.searchStudentById(studentId);
+
+        if (student == null) {
+            System.out.println("\nStudent not found!");
+            return;
+        }
+
+        System.out.print("Enter Course ID: ");
+        String courseId = scanner.nextLine();
+
+        Course course = courseManager.searchCourse(courseId);
+
+        if (course == null) {
+            System.out.println("\nCourse not found!");
+            return;
+        }
+
+        student.assignCourse(course);
+
+        FileManager.saveEnrollment(student.getStudentId(), course.getCourseId());
+
+        System.out.println("\nCourse assigned successfully!");
+    }
+    public static void displayDashboard(StudentService studentService,
+                                        CourseManager courseManager) {
+
+        System.out.println("\n====================================");
+        System.out.println("           DASHBOARD");
+        System.out.println("====================================");
+
+        int totalStudents = studentService.getStudents().size();
+        int totalCourses = courseManager.getCourses().size();
+
+        System.out.println("Total Students : " + totalStudents);
+        System.out.println("Total Courses  : " + totalCourses);
+
+        double averageAge = 0;
+
+        if (totalStudents > 0) {
+
+            int totalAge = 0;
+
+            for (Student student : studentService.getStudents()) {
+                totalAge += student.getAge();
+            }
+
+            averageAge = (double) totalAge / totalStudents;
+        }
+
+        System.out.printf("Average Age    : %.2f%n", averageAge);
+
+        System.out.println("====================================");
+        int totalEnrollments = 0;
+
+        for (Student student : studentService.getStudents()) {
+            totalEnrollments += student.getEnrolledCourses().size();
+        }
+
+        System.out.println("Total Enrollments : " + totalEnrollments);
+    }
+
 }

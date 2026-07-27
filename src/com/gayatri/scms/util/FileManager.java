@@ -2,6 +2,8 @@ package com.gayatri.scms.util;
 
 import com.gayatri.scms.model.Student;
 import com.gayatri.scms.model.Course;
+import com.gayatri.scms.service.CourseManager;
+import com.gayatri.scms.service.StudentService;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -171,6 +173,52 @@ public class FileManager {
         } catch (IOException e) {
 
             System.out.println("Error updating course records.");
+        }
+    }
+    public static void saveEnrollment(int studentId, String courseId) {
+
+        try {
+
+            FileWriter writer = new FileWriter("enrollments.txt", true);
+
+            writer.write(studentId + "," + courseId + "\n");
+
+            writer.close();
+
+        } catch (IOException e) {
+
+            System.out.println("Error saving enrollment.");
+        }
+    }
+    public static void loadEnrollments(StudentService studentService,
+                                       CourseManager courseManager) {
+
+        try {
+
+            BufferedReader reader = new BufferedReader(new FileReader("enrollments.txt"));
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+
+                int studentId = Integer.parseInt(parts[0]);
+                String courseId = parts[1];
+
+                Student student = studentService.searchStudentById(studentId);
+                Course course = courseManager.searchCourse(courseId);
+
+                if (student != null && course != null) {
+                    student.assignCourse(course);
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+
+            System.out.println("No previous enrollments found.");
         }
     }
 
