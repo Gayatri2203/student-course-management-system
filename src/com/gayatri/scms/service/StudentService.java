@@ -1,115 +1,33 @@
 package com.gayatri.scms.service;
 
+import com.gayatri.scms.dao.StudentDAO;
 import com.gayatri.scms.model.Student;
-
-import java.util.ArrayList;
-
-import com.gayatri.scms.util.FileManager;
 
 public class StudentService {
 
-    private ArrayList<Student> students;
+    private StudentDAO studentDAO;
 
     public StudentService() {
-
-        students = FileManager.loadStudents();
-
+        studentDAO = new StudentDAO();
     }
 
     public void addStudent(Student student) {
-
-        students.add(student);
-
-        FileManager.saveStudent(student);
-
+        studentDAO.addStudent(student);
     }
 
     public void viewStudents() {
-
-        if (students.isEmpty()) {
-
-            System.out.println("No students found.");
-            return;
-        }
-
-        int count = 1;
-
-        for (Student student : students) {
-
-            System.out.println("---------------------");
-            System.out.println("Student " + count++);
-            System.out.println(student);
-
-        }
-
-    }
-    public void searchStudent(String searchName) {
-
-        boolean found = false;
-
-        for (Student student : students) {
-
-            if (student.getName().equalsIgnoreCase(searchName)) {
-
-                System.out.println("\nStudent Found");
-                System.out.println("----------------");
-                System.out.println(student);
-
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            System.out.println("Student not found.");
-        }
-    }
-    public boolean updateStudent(String searchName, int newAge, String newEmail) {
-
-        for (Student student : students) {
-
-            if (student.getName().equalsIgnoreCase(searchName)) {
-
-                student.setAge(newAge);
-                student.setEmail(newEmail);
-                FileManager.rewriteStudents(students);
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-    public boolean deleteStudent(int studentId) {
-
-        for (Student student : students) {
-
-            if (student.getStudentId() == studentId) {
-
-                students.remove(student);
-
-                FileManager.rewriteStudents(students);
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-    public Student searchStudentById(int studentId) {
-
-        for (Student student : students) {
-
-            if (student.getStudentId() == studentId) {
-                return student;
-            }
-        }
-
-        return null;
+        studentDAO.viewStudents();
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
+    public void searchStudent(int studentId) {
+        studentDAO.searchStudentById(studentId);
     }
 
+    public void updateStudent(int studentId, int newAge, String newEmail) {
+        studentDAO.updateStudent(studentId, newAge, newEmail);
+    }
+
+    public void deleteStudent(int studentId) {
+        studentDAO.deleteStudent(studentId);
+    }
 }

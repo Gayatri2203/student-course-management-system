@@ -256,63 +256,28 @@ public class Main {
         System.out.print("Enter Student ID to Search: ");
 
         int studentId = scanner.nextInt();
-        scanner.nextLine();
 
-        Student student = studentService.searchStudentById(studentId);
-
-        if (student != null) {
-
-            System.out.println("\nStudent Found");
-            System.out.println("----------------------");
-            System.out.println(student);
-
-        } else {
-
-            System.out.println("\nStudent not found.");
-
-        }
+        studentService.searchStudent(studentId);
     }
     public static void updateStudent(Scanner scanner, StudentService studentService) {
 
-        String name = readValidName(scanner);
+        System.out.print("Enter Student ID to Update: ");
 
-        System.out.println("Enter New Details");
+        int studentId = scanner.nextInt();
 
         int newAge = readValidAge(scanner);
 
         String newEmail = readValidEmail(scanner);
 
-        boolean updated = studentService.updateStudent(name, newAge, newEmail);
-
-        if (updated) {
-
-            System.out.println("\nStudent Updated Successfully!");
-
-        } else {
-
-            System.out.println("\nStudent Not Found!");
-
-        }
-
+        studentService.updateStudent(studentId, newAge, newEmail);
     }
     public static void deleteStudent(Scanner scanner, StudentService studentService) {
 
         System.out.print("Enter Student ID to Delete: ");
 
         int studentId = scanner.nextInt();
-        scanner.nextLine();
 
-        boolean deleted = studentService.deleteStudent(studentId);
-
-        if (deleted) {
-
-            System.out.println("\nStudent Deleted Successfully!");
-
-        } else {
-
-            System.out.println("\nStudent Not Found!");
-
-        }
+        studentService.deleteStudent(studentId);
     }
     public static void addCourse(Scanner scanner, CourseManager courseManager) {
 
@@ -382,7 +347,7 @@ public class Main {
         int studentId = scanner.nextInt();
         scanner.nextLine();
 
-        Student student = studentService.searchStudentById(studentId);
+        Student student = studentService.searchStudent(studentId);
 
         if (student == null) {
             System.out.println("\nStudent not found!");
